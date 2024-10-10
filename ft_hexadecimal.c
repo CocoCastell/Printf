@@ -1,3 +1,11 @@
+#include <stdint.h>
+
+int	print_pointer(uintptr_t ptr)
+{
+	char	*base_chars;
+
+	base_chars = "0123456789abcdef";
+}
 
 int	print_hexadec(unsigned int nb, int cap)
 {
