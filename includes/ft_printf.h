@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include "Libft/libft.h"
+# include "libft.h"
 
-int	print_int(int nb);
+int	print_int(long nb, int base, int flag);
 int	print_char(int c);
 int	print_decimal(double d);
 int	printf_string(char *str);
 int	print_pointer(uintptr_t int_ptr);
 int	ft_printf(const char *format, ...);
 int	print_unsigned_int(unsigned int nb);
-int	print_hexadec(unsigned int nb, int flag);
+//int	print_hexadec(unsigned int nb, int flag);
 
 #endif
