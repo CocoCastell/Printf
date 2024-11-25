@@ -6,19 +6,11 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/10/10 15:51:45 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:32:18 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-/*int	print_int(int nb)
-{
-	char	*str;
-
-	str = ft_itoa(nb);
-	return (write(1, str, ft_strlen(str)));
-}*/
 
 int	printf_string(char *str)
 {
@@ -75,33 +67,6 @@ int	print_int(long nb, int base, int flag)
 	}
 }
 
-/*int	print_hexadec(unsigned int nb, int flag)
-{
-	int		count;
-	int		i;
-	char	*base_chars;
-	char	str[9];
-
-	count = 0;
-	if (flag == 0)
-		base_chars = "0123456789abcdef";
-	else if (flag == 1)
-		base_chars = "0123456789ABCDEF";
-	if (nb == 0)
-		count = write(1, "0", 1);
-	i = 0;
-	while (nb != 0)
-	{
-		str[i] = base_chars[nb % 16];
-		nb /= 16;
-		i++;
-	}
-	str[i] = '\0';
-	while (--i >= 0)
-		count += write(1, &str[i], 1);
-	return (count);
-}*/
-
 int	print_unsigned_int(unsigned int nb)
 {
 	int		len;
@@ -110,6 +75,7 @@ int	print_unsigned_int(unsigned int nb)
 	char	*str;
 
 	n = nb;
+	len = 0;
 	while (n > 9)
 	{
 		n /= 10;
