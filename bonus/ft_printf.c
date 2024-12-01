@@ -6,14 +6,21 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:59:15 by cochatel          #+#    #+#             */
-/*   Updated: 2024/11/25 21:19:30 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/01 19:14:10 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-void	init
+int	init_struct(t_parse *parsing)
+{
+	parsing->diez = false;
+	parsing->space = false;
+	parsing->plus = false;
+	parsing->specifier = 'q';
+	return (0);
+}
 
 int	check_error(const char *format, int occurence[3])
 {
@@ -26,31 +33,31 @@ int	check_error(const char *format, int occurence[3])
 			return (1);
 		i++;
 	}
-	if (*format != 'c' || *format != 's' || *format != 'p' || *format != 'd' \
-	|| *format != 'i' || *format != 'u' || *format != 'x' || *format != 'X'\
-	|| *format != '%')
+	if (*format != 'c' && *format != 's' && *format != 'p' && *format != 'd' \
+	&& *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X'\
+	&& *format != '%')
 		return (1);
 	return (0);
 }
 
-void	fill_struct(const char *format, int occurence[3], t_parse parsing)
+void	fill_struct(const char *format, int occurence[3], t_parse *parsing)
 {
 	if (occurence[0] == 1)
-		parsing.diez = true;
-	else
-		parsing.diez = false;
+		parsing->diez = true;
+	//else
+	//	parsing->diez = false;
 	if (occurence[1] == 1)
-		parsing.space = true;
-	else
-		parsing.diez = false;
+		parsing->space = true;
+	//else
+	//	parsing->diez = false;
 	if (occurence[2] == 1)
-		parsing.plus = true;
-	else
-		parsing.diez = false;
-	parsing.specifier = *format;
+		parsing->plus = true;
+	//else
+	//	parsing->diez = false;
+	parsing->specifier = *format;
 }
 
-const char	*struct_manager(const char *format, t_parse parsing)
+const char	*struct_manager(const char *format, t_parse *parsing)
 {
 	int		occurence[3];
 
@@ -78,45 +85,51 @@ const char	*struct_manager(const char *format, t_parse parsing)
 		return (NULL);
 }
 
-void	print_struct(t_parse parsing)
+void	print_struct(t_parse *parsing)
 {
-	if (parsing.diez == true)
-		printf("true\n");
-	if (parsing.diez == false)
-		printf("false\n");
-	if (parsing.space == true)
-		printf("true\n");
-	if (parsing.space == false)
-		printf("false\n");
-	if (parsing.plus == true)
-		printf("true\n");
-	if (parsing.plus == false)
-		printf("false\n");
-	printf("%c\n", parsing.specifier);
+	printf("\n");
+	if (parsing->diez == true)
+		printf("# --> true\n");
+	if (parsing->diez == false)
+		printf("# --> false\n");
+	if (parsing->space == true)
+		printf("' ' --> true\n");
+	if (parsing->space == false)
+		printf("' ' --> false\n");
+	if (parsing->plus == true)
+		printf("+ --> true\n");
+	if (parsing->plus == false)
+		printf("+ --> false\n");
+	printf("Specifier is: %c\n", parsing->specifier);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	t_parse		parsing;
+	t_parse		*parsing;
 	int			count;
 
 	if (format == NULL)
 		return (0);
 	count = 0;
+	parsing = malloc(sizeof(t_parse));
+	if (parsing == NULL)
+		return (0);
+	init_struct(parsing);
 	va_start(ap, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			struct_manager(++format, parsing);
-			print_struct(parsing);
-			//count =+ ;
+			if (struct_manager(++format, parsing) == NULL)
+				break ;
+			count += type_manager(*(++format), ap);
 		}
 		else
 			count += write(1, format, 1);
 		format++;
 	}
+	print_struct(parsing);
 	va_end(ap);
 	return (count);
 }

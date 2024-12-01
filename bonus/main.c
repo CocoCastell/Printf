@@ -2,6 +2,6 @@
 
 int	main(void)
 {
-	ft_printf("Bon dia");
+	ft_printf("Bon dia %+ #d");
 	return (0);
 }
