@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/11/25 15:32:18 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:33:08 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	print_pointer(uintptr_t int_ptr)
 
 int	print_int(long nb, int base, int flag)
 {
-	char	*base_chars;
+	charb	*base_chars;
 	int		count;
 
 	if (flag == 0)
