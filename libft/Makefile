@@ -36,7 +36,7 @@ all:	$(NAME)
 
 $(NAME): $(OBJS)
 	@$(AR) -rcs $@ $^
-	@echo "Biblioteca $(GREEN)$(NAME)$(DEF_COLOR) creada amb èxit."
+	@echo "Biblioteca $(MAGENTA)$(NAME)$(DEF_COLOR) creada amb èxit."
 
 $(OBJS_DIR)%.o:	$(SRCS_DIR)%.c	Makefile ../includes/libft.h
 	@$(CC) $(CFLAGS) -c -o $@ $<
@@ -46,12 +46,12 @@ bonus:	$(OBJS) $(BONUS_OBJS)
 
 clean:
 	@rm -f $(OBJS) $(BONUS_OBJS)
-	@echo "Fitxers\n$(RED)$(OBJS) $(BONUS_OBJS)$(DEF_COLOR)\neliminats amb èxit."
+	@echo "$(RED)Fitxers eliminats amb èxit.$(DEF_COLOR)(libft)"
 
 fclean:	clean
 	@rm -f $(NAME)
 	@rm -rf $(OBJS_DIR)
-	@echo "Directori $(RED)$(NAME) $(OBJS_DIR)$(DEF_COLOR) eliminats amb èxit."
+	@echo "$(RED)Directori eliminats amb èxit.$(DEF_COLOR)(libft)"
 
 re:	fclean all
 

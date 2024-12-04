@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:59:15 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/03 18:58:30 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:15:11 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 #include <stdio.h>
 
-int	init_struct(t_parse *parsing)
+static int	init_struct(t_parse *parsing)
 {
 	parsing->diez = false;
 	parsing->space = false;
 	parsing->plus = false;
 	parsing->specifier = 'q';
+	parsing->width = 0;
 	parsing->sign = 0;
 	return (0);
 }
 
-int	check_error(const char *format, int occurence[3])
+static int	check_error(const char *format, int occurence[3])
 {
 	int	i;
 
@@ -31,34 +32,41 @@ int	check_error(const char *format, int occurence[3])
 	while (i < 3)
 	{
 		if (occurence[i] > 1)
-			return (1);
+			return (-1);
 		i++;
 	}
 	if (*format != 'c' && *format != 's' && *format != 'p' && *format != 'd' \
 	&& *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X'\
 	&& *format != '%')
-		return (1);
+		return (-1);
+	if (occurence[1] == 1 && occurence[2] == 1)
+		return (-1);
+	if (occurence[0] == 1 && *format != 'x' && occurence[0] == 1 && *format != 'X' )
+		return (-1);
 	return (0);
 }
 
-void	fill_struct(const char *format, int occurence[3], t_parse *parsing)
+static void	fill_struct(const char *format, int occurence[3], t_parse *parsing)
 {
 	if (occurence[0] == 1)
+	{
 		parsing->diez = true;
-	//else
-	//	parsing->diez = false;
+		parsing->width++;
+	}
 	if (occurence[1] == 1)
+	{
 		parsing->space = true;
-	//else
-	//	parsing->diez = false;
+		parsing->width++;
+	}
 	if (occurence[2] == 1)
+	{
 		parsing->plus = true;
-	//else
-	//	parsing->diez = false;
+		parsing->width++;
+	}
 	parsing->specifier = *format;
 }
 
-const char	*struct_manager(const char *format, t_parse *parsing)
+static int	struct_manager(const char *format, t_parse *parsing)
 {
 	int		occurence[3];
 
@@ -80,28 +88,10 @@ const char	*struct_manager(const char *format, t_parse *parsing)
 	if (check_error(format, occurence) == 0)
 	{
 		fill_struct(format, occurence, parsing);
-		return (format);
+		return (0);
 	}
 	else
-		return (NULL);
-}
-
-void	print_struct(t_parse *parsing)
-{
-	printf("\n");
-	if (parsing->diez == true)
-		printf("# --> true\n");
-	if (parsing->diez == false)
-		printf("# --> false\n");
-	if (parsing->space == true)
-		printf("' ' --> true\n");
-	if (parsing->space == false)
-		printf("' ' --> false\n");
-	if (parsing->plus == true)
-		printf("+ --> true\n");
-	if (parsing->plus == false)
-		printf("+ --> false\n");
-	printf("Specifier is: %c\n", parsing->specifier);
+		return (write(1, "ERROR\n", 6));
 }
 
 int	ft_printf(const char *format, ...)
@@ -111,20 +101,21 @@ int	ft_printf(const char *format, ...)
 	int			count;
 
 	if (format == NULL)
-		return (0);
-	count = 0;
+		return (-1);
 	parsing = malloc(sizeof(t_parse));
 	if (parsing == NULL)
-		return (0);
+		return (-1);
+	count = 0;
 	va_start(ap, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			init_struct(parsing);
-			if (struct_manager(++format, parsing) == NULL)
-				break ;
-			count += type_manager(parsing, *format, ap);
+			if (struct_manager(++format, parsing) > 0)
+				return (-1);
+			count += type_manager(parsing, format[parsing->width], ap);
+			format += parsing->width;
 		}
 		else
 			count += write(1, format, 1);

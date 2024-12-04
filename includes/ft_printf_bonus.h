@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:07:03 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/03 18:57:06 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/04 18:46:05 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include "libft.h"
 
 typedef struct s_parse
 {
@@ -25,6 +26,7 @@ typedef struct s_parse
 	bool	diez;
 	bool	space;
 	char	specifier;
+	int		width;
 	int		sign;
 }				t_parse;
 

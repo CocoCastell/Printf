@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_types.c                                         :+:      :+:    :+:   */
+/*   ft_types_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/03 17:33:08 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:07:47 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	printf_string(char *str)
 {
@@ -48,7 +48,7 @@ int	print_int(long nb, int base, int flag)
 {
 	char	*base_chars;
 	int		count;
-
+	
 	if (flag == 0)
 		base_chars = "0123456789abcdef";
 	else if (flag == 1)

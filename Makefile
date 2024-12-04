@@ -11,17 +11,18 @@ INC = includes/
 SRCS_DIR = src/
 OBJS_DIR = obj/
 
-SRCS =  ft_types.c ft_printf.c
+SRCS = ft_types.c ft_printf.c
 
 OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-INC_BONUS = ft_printf.h
-SRCS_BONUS = ft_printf_bonus.c ft_types_bonus.c ft_manager.c
-OBJS_DIR_BONUS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o) $(SRCS_BONUS:.c=.o))
+BONUS_DIR = bonus/
+BONUS_OBJS_DIR = bonus/obj/
+SRCS_BONUS = ft_manager_bonus.c ft_printf_bonus.c ft_types_bonus.c
+OBJS_BONUS = $(addprefix $(BONUS_OBJS_DIR), $(SRCS_BONUS:.c=.o))
 
 # Colors
 
-DEF_COLOR = \033[0;39m
+DEF_COLOR = \033[0m
 GRAY = \033[0;90m
 RED = \033[0;91m
 GREEN = \033[0;92m
@@ -35,9 +36,19 @@ WHITE = \033[0;97m
 
 all:	$(NAME)
 	@mkdir -p $(OBJS_DIR)
-	@echo "Biblioteca $(GREEN)$(NAME)$(DEF_COLOR) creada amb èxit."
+	@echo "Biblioteca $(MAGENTA)$(NAME)$(DEF_COLOR) creada amb èxit."
 
-bonus:	$(LIBFT) $(OBJS_DIR)
+bonus: fclean $(OBJS_BONUS) $(LIBFT)libft.a 
+	@cp libft/libft.a .
+	@$(AR) -x libft.a
+	@$(AR) -rcs $(NAME) $(OBJS_BONUS) *.o
+	@rm -f *.o
+	@rm libft.a
+	@echo "Biblioteca $(MAGENTA)$(NAME)$(DEF_COLOR) creada amb èxit."
+
+$(BONUS_OBJS_DIR)%.o: $(BONUS_DIR)%.c Makefile $(INC)libft.h $(INC)ft_printf.h $(INC)ft_printf_bonus.h
+	@mkdir -p $(BONUS_OBJS_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT)libft.a:
 	@make --no-print-directory -C $(LIBFT)
@@ -56,12 +67,12 @@ $(OBJS_DIR)%.o:	$(SRCS_DIR)%.c Makefile $(INC)libft.h $(INC)ft_printf.h
 clean:
 	@$(RM) $(OBJS) $(BONUS_OBJS)
 	@make clean --no-print-directory -C $(LIBFT)
-	@echo "Fitxers\n$(RED)$(OBJS) $(BONUS_OBJS)$(DEF_COLOR)\neliminats amb èxit."
+	@echo "$(RED)Directori eliminats amb èxit.$(DEF_COLOR)(printf)"
 fclean:
 	@$(RM) $(NAME)
 	@$(RM) -r $(OBJS_DIR)
 	@make fclean --no-print-directory -C $(LIBFT)
-	@echo "Directori $(RED)$(NAME) $(OBJS_DIR) $(DEF_COLOR)eliminats amb èxit."
+	@echo "$(RED)Directori eliminats amb èxit.$(DEF_COLOR)(printf)"
 re:	clean all
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
