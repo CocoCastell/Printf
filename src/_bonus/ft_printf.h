@@ -29,5 +29,10 @@ typedef struct s_parse
 }				t_parse;
 
 int	ft_printf(const char *format, ...);
+int	print_unsigned_int(unsigned int nb);
+int	print_pointer(uintptr_t int_ptr);
+int	print_int(long nb, int base, int flag);
+int	printf_string(char *str);
+int	type_manager(t_parse *parsing, char conversion, va_list ap);
 
 #endif

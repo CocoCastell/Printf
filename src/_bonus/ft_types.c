@@ -46,7 +46,7 @@ int	print_pointer(uintptr_t int_ptr)
 
 int	print_int(long nb, int base, int flag)
 {
-	charb	*base_chars;
+	char	*base_chars;
 	int		count;
 
 	if (flag == 0)

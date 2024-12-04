@@ -124,7 +124,7 @@ int	ft_printf(const char *format, ...)
 			init_struct(parsing);
 			if (struct_manager(++format, parsing) == NULL)
 				break ;
-			count += type_manager(*(++format), ap);
+			count += type_manager(parsing, *format, ap);
 		}
 		else
 			count += write(1, format, 1);

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	diez(t_parse *parsing)
+/*void	diez(t_parse *parsing)
 {
 	if (parsing->specifier == 'x')
 		return (write(1, "0x", 2));
@@ -31,26 +31,32 @@ void	print_flags(t_parse *parsing)
 	if (parsing->diez == true)
 		count += diez(parsing);
 	//if (parsing->space == true)
-}
+}*/
 
-void	int_manager(t_parse *parsing, long nb)
+int	int_manager(t_parse *parsing, long nb)
 {
 	int count;
 
 	count = 0;
-	if (parse->diez == true)
+	if (parsing->diez == true && parsing->space == false)
 	{
 		if (nb >= 0)
-			count = write(1, '+', 1);
+			count = write(1, "+", 1);
 	}
-	if (parse->space == true && )
+	if (parsing->space == true && parsing->diez == false)
+	{
+		if (nb >= 0)
+			count = write(1, " ", 1);
+	}
+	count += print_int(nb, 10, 0);
+	return (count);
 
 }
 
-static int	type_manager(t_parse *parsing, char conversion, va_list ap)
+int	type_manager(t_parse *parsing, char conversion, va_list ap)
 {
 	int	count;
-
+	
 	count = 0;
 	if (conversion == 'c' || conversion == '%')
 	{
@@ -60,10 +66,7 @@ static int	type_manager(t_parse *parsing, char conversion, va_list ap)
 	else if (conversion == 's')
 		count = printf_string(va_arg(ap, char *));
 	else if (conversion == 'i' || conversion == 'd')
-	{
-		count =
-		count = print_int((long)va_arg(ap, int), 10, 0);
-	}
+		count = int_manager(parsing, (long)va_arg(ap, int));
 	else if (conversion == 'p')
 		count = print_pointer(va_arg(ap, uintptr_t));
 	else if (conversion == 'u')
