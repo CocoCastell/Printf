@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:59:15 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/04 20:15:11 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:12:38 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ static int	check_error(const char *format, int occurence[3])
 		return (-1);
 	if (occurence[1] == 1 && occurence[2] == 1)
 		return (-1);
-	if (occurence[0] == 1 && *format != 'x' && occurence[0] == 1 && *format != 'X' )
+	if (occurence[0] == 1 && (*format != 'x' && *format != 'X'))
+		return (-1);
+	if (occurence[1] == 1 && (*format != 'd' && *format != 'i'))
+		return (-1);
+	if (occurence[2] == 1 && (*format != 'd' && *format != 'i'))
 		return (-1);
 	return (0);
 }
