@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:59:15 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 15:47:25 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 16:57:03 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	init_struct(t_parse *parsing)
 	parsing->space = false;
 	parsing->plus = false;
 	parsing->specifier = 'q';
-	parsing->width = 0;
+	parsing->width = 1;
 	parsing->sign = 0;
 	return (0);
 }
@@ -113,22 +113,16 @@ int	ft_printf(const char *format, ...)
 	va_start(ap, format);
 	while (*format)
 	{
+		init_struct(parsing);
 		if (*format == '%')
 		{
-			init_struct(parsing);
 			if (struct_manager(++format, parsing) > 0)
-			{
-				free(parsing);
-				return (-1);
-			}
+				return (va_end(ap), free(parsing), -1);
 			count += type_manager(parsing, format[parsing->width], ap);
-			format += parsing->width;
 		}
 		else
 			count += write(1, format, 1);
-		format++;
+		format += parsing->width;
 	}
-	va_end(ap);
-	free(parsing);
-	return (count);
+	return (va_end(ap), free(parsing), count);
 }
