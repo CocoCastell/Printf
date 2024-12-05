@@ -6,7 +6,7 @@
 /*   By: cochatel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:34:25 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/04 20:12:01 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:43:09 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	type_manager(t_parse *parsing, char conversion, va_list ap)
 	else if (conversion == 'p')
 		count += print_pointer(va_arg(ap, uintptr_t));
 	else if (conversion == 'u')
-		count += print_unsigned_int(va_arg(ap, unsigned int));
+		count += print_unsigned_int(va_arg(ap, unsigned int), 0);
 	else if (conversion == 'x')
 		count += print_int((long)va_arg(ap, unsigned int), 16, 0);
 	else if (conversion == 'X')

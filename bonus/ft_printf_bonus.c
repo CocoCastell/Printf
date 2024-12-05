@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:59:15 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 15:12:38 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:47:25 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,10 @@ int	ft_printf(const char *format, ...)
 		{
 			init_struct(parsing);
 			if (struct_manager(++format, parsing) > 0)
+			{
+				free(parsing);
 				return (-1);
+			}
 			count += type_manager(parsing, format[parsing->width], ap);
 			format += parsing->width;
 		}
@@ -126,5 +129,6 @@ int	ft_printf(const char *format, ...)
 		format++;
 	}
 	va_end(ap);
+	free(parsing);
 	return (count);
 }

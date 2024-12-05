@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/11/25 15:32:18 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:49:25 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,15 @@ int	print_int(long nb, int base, int flag)
 	}
 }
 
-int	print_unsigned_int(unsigned int nb)
+int	print_unsigned_int(unsigned int nb, int len)
 {
-	int		len;
-	int		n;
 	int		j;
 	char	*str;
 
-	n = nb;
-	len = 0;
-	while (n > 9)
+	j = nb;
+	while (j > 9)
 	{
-		n /= 10;
+		j /= 10;
 		len++;
 	}
 	len++;
@@ -93,5 +90,7 @@ int	print_unsigned_int(unsigned int nb)
 		nb /= 10;
 	}
 	str[len] = '\0';
-	return (write(1, str, ft_strlen(str)));
+	j = write(1, str, ft_strlen(str));
+	free(str);
+	return (j);
 }

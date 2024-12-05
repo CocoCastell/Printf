@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 15:07:03 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/04 18:46:05 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:42:29 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_parse
 }				t_parse;
 
 int	ft_printf(const char *format, ...);
-int	print_unsigned_int(unsigned int nb);
+int	print_unsigned_int(unsigned int nb, int len);
 int	print_pointer(uintptr_t int_ptr);
 int	print_int(long nb, int base, int flag);
 int	printf_string(char *str);
