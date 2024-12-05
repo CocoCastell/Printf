@@ -65,12 +65,12 @@ $(OBJS_DIR)%.o:	$(SRCS_DIR)%.c Makefile $(INC)libft.h $(INC)ft_printf.h
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJS) $(BONUS_OBJS)
+	@$(RM) $(OBJS) $(BONUS_OBJS) $(OBJS_BONUS)
 	@make clean --no-print-directory -C $(LIBFT)
 	@echo "$(RED)Directori eliminats amb èxit.$(DEF_COLOR)(printf)"
 fclean:
 	@$(RM) $(NAME)
-	@$(RM) -r $(OBJS_DIR)
+	@$(RM) -r $(OBJS_DIR) $(BONUS_OBJS_DIR)
 	@make fclean --no-print-directory -C $(LIBFT)
 	@echo "$(RED)Directori eliminats amb èxit.$(DEF_COLOR)(printf)"
 re:	clean all

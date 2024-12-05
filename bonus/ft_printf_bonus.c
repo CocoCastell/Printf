@@ -6,14 +6,14 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:59:15 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 16:57:03 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:59:28 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 #include <stdio.h>
 
-static int	init_struct(t_parse *parsing)
+static void	init_struct(t_parse *parsing)
 {
 	parsing->diez = false;
 	parsing->space = false;
@@ -21,7 +21,6 @@ static int	init_struct(t_parse *parsing)
 	parsing->specifier = 'q';
 	parsing->width = 1;
 	parsing->sign = 0;
-	return (0);
 }
 
 static int	check_error(const char *format, int occurence[3])
@@ -35,9 +34,7 @@ static int	check_error(const char *format, int occurence[3])
 			return (-1);
 		i++;
 	}
-	if (*format != 'c' && *format != 's' && *format != 'p' && *format != 'd' \
-	&& *format != 'i' && *format != 'u' && *format != 'x' && *format != 'X'\
-	&& *format != '%')
+	if (*format == '\0')
 		return (-1);
 	if (occurence[1] == 1 && occurence[2] == 1)
 		return (-1);
@@ -77,7 +74,9 @@ static int	struct_manager(const char *format, t_parse *parsing)
 	occurence[0] = 0;
 	occurence[1] = 0;
 	occurence[2] = 0;
-	while (*format)
+	while (*format || (*format != 'c' && *format != 's' && *format != 'p' && \
+	*format != 'd' && *format != 'i' && *format != 'u' && *format != 'x' && \
+	*format != 'X' && *format != '%'))
 	{
 		if (*format == '#')
 			occurence[0]++;
@@ -90,10 +89,7 @@ static int	struct_manager(const char *format, t_parse *parsing)
 		format++;
 	}
 	if (check_error(format, occurence) == 0)
-	{
-		fill_struct(format, occurence, parsing);
-		return (0);
-	}
+		return (fill_struct(format, occurence, parsing), 0);
 	else
 		return (write(1, "ERROR\n", 6));
 }
@@ -118,7 +114,7 @@ int	ft_printf(const char *format, ...)
 		{
 			if (struct_manager(++format, parsing) > 0)
 				return (va_end(ap), free(parsing), -1);
-			count += type_manager(parsing, format[parsing->width], ap);
+			count += type_manager(parsing, *(format - 1 + parsing->width), ap);
 		}
 		else
 			count += write(1, format, 1);
