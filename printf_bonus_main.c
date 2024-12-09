@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/ft_printf_bonus.h"
+#include "bonus/ft_printf_bonus.h"
 
 int	main(void)
 {
@@ -33,7 +33,7 @@ int	main(void)
 	ft_printf("Test amb '+': |%+i|\n", nb);
 	ft_printf("Test amb ' ' : |% i|\n", nb);
 	ft_printf("Test ERROR '#': |%#i|\n", nb);
-	ft_printf("Test ERROR amb dos '+': |%##i|\n", nb);
+	ft_printf("Test ERROR amb dos '+': |%++i|\n", nb);
 	ft_printf("Test ERROR '#' i '+': |%#i|\n", nb);
 	ft_printf("Test ERROR '#' i ' ': |%#+i|\n", nb);
 	ft_printf("Test ERROR amb '+' i ' ' : |%+ i|\n", nb);

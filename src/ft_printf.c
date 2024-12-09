@@ -25,9 +25,9 @@ static int	type_manager(char conversion, va_list ap)
 	else if (conversion == 's')
 		count = printf_string(va_arg(ap, char *));
 	else if (conversion == 'i')
-		count = print_int((long)va_arg(ap, int), 10, 0);
+		count = print_int((long)va_arg(ap, int), 10, 2);
 	else if (conversion == 'd')
-		count = print_int((long)va_arg(ap, int), 10, 0);
+		count = print_int((long)va_arg(ap, int), 10, 2);
 	else if (conversion == 'p')
 		count = print_pointer(va_arg(ap, uintptr_t));
 	else if (conversion == 'u')
@@ -45,6 +45,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		count;
+	int		check_null;
 
 	if (format == NULL)
 		return (0);
@@ -53,7 +54,12 @@ int	ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
-			count += type_manager(*(++format), ap);
+			{
+				check_null = type_manager(*(++format), ap);
+				if (check_null == -1)
+					check_null = write(1, "(null)", 6);
+				count += check_null;
+			}
 		else
 			count += write(1, format, 1);
 		format++;

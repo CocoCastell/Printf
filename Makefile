@@ -46,7 +46,7 @@ bonus: fclean $(OBJS_BONUS) $(LIBFT)libft.a
 	@rm libft.a
 	@echo "Biblioteca $(MAGENTA)$(NAME)$(DEF_COLOR) creada amb èxit."
 
-$(BONUS_OBJS_DIR)%.o: $(BONUS_DIR)%.c Makefile $(INC)libft.h $(INC)ft_printf.h $(INC)ft_printf_bonus.h
+$(BONUS_OBJS_DIR)%.o: $(BONUS_DIR)%.c Makefile $(BONUS_DIR)libft.h $(BONUS_DIR)ft_printf_bonus.h
 	@mkdir -p $(BONUS_OBJS_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 

@@ -36,5 +36,6 @@ int	print_pointer(uintptr_t int_ptr);
 int	print_int(long nb, int base, int flag);
 int	printf_string(char *str);
 int	type_manager(t_parse *parsing, char conversion, va_list ap);
+int	check_diez(t_parse *parsing);
 
 #endif

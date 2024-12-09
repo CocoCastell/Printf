@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	printf_string(char *str)
 {
 	if (str == NULL)
-		return (write(2, "(null)", 6));
+		return (-1);
+		//return (write(2, "(null)", 6));
 	else
 		return (write(1, str, ft_strlen(str)));
 }
@@ -29,8 +31,8 @@ int	print_pointer(uintptr_t int_ptr)
 
 	if (int_ptr == 0)
 		return (write(1, "(nil)", 5));
-	count = 0;
 	base_chars = "0123456789abcdef";
+	count = write(1, "0x", 2);
 	i = 0;
 	while (int_ptr != 0)
 	{
@@ -51,11 +53,13 @@ int	print_int(long nb, int base, int flag)
 
 	if (flag == 0)
 		base_chars = "0123456789abcdef";
-	else if (flag == 1)
+	else if (flag > 0)
 		base_chars = "0123456789ABCDEF";
 	if (nb < 0)
 	{
 		write(1, "-", 1);
+		if (nb == -2147483648)
+			return (1 + write(1, "2147483648", 10));
 		return (print_int(-nb, base, flag) + 1);
 	}
 	if (nb < base)
@@ -69,28 +73,28 @@ int	print_int(long nb, int base, int flag)
 
 int	print_unsigned_int(unsigned int nb, int len)
 {
-	int		j;
+	unsigned int	nb_copy;
+	int	i;
 	char	*str;
 
-	j = nb;
-	while (j > 9)
+	nb_copy = nb;
+	while (nb_copy > 9)
 	{
-		j /= 10;
+		nb_copy /= 10;
 		len++;
 	}
 	len++;
 	str = malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (write(2, "(null), malloc failed\n", 22));
-	j = len - 1;
-	while (j >= 0)
+	i = len - 1;
+	while (i >= 0)
 	{
-		str[j] = nb % 10 + '0';
-		j--;
+		str[i] = nb % 10 + '0';
 		nb /= 10;
+		i--;
 	}
 	str[len] = '\0';
-	j = write(1, str, ft_strlen(str));
-	free(str);
-	return (j);
+	nb_copy = write(1, str, ft_strlen(str));
+	return (free(str), nb_copy);
 }

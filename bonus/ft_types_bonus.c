@@ -15,7 +15,8 @@
 int	printf_string(char *str)
 {
 	if (str == NULL)
-		return (write(2, "(null)", 6));
+		return (-1);
+		//return (write(2, "(null)", 6));
 	else
 		return (write(1, str, ft_strlen(str)));
 }
@@ -29,7 +30,7 @@ int	print_pointer(uintptr_t int_ptr)
 
 	if (int_ptr == 0)
 		return (write(1, "(nil)", 5));
-	count = 0;
+	count = write(1, "0x", 2);
 	base_chars = "0123456789abcdef";
 	i = 0;
 	while (int_ptr != 0)

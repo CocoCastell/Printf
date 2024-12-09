@@ -25,23 +25,20 @@ static void	init_struct(t_parse *parsing)
 
 static int	check_error(const char *format, int occurence[3])
 {
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (occurence[i] > 1)
-			return (-1);
-		i++;
-	}
+	if (occurence[0] > 1)
+		write(2, "warning: repeated '#' flag in format\n", 37);
+	if (occurence[1] > 1)
+		write(2, "warning: repeated ' ' flag in format\n", 37);
+	if (occurence[2] > 1)
+		write(2, "warning: repeated '+' flag in format\n", 37);
+	if (occurence[1] > 0 && occurence[2] > 0)
+		write(2, "warning: ' ' flag ignored\n", 26);
 	if (*format == '\0')
-		return (-1);
-	if (occurence[1] == 1 && occurence[2] == 1)
 		return (-1);
 	if (occurence[0] == 1 && (*format != 'x' && *format != 'X'))
 		return (-1);
 	if (occurence[1] == 1 && (*format != 'd' && *format != 'i'))
-		return (-1);
+		write(2, "warning: ' ' flag used with wrong flag\n", 39);
 	if (occurence[2] == 1 && (*format != 'd' && *format != 'i'))
 		return (-1);
 	return (0);
@@ -49,20 +46,20 @@ static int	check_error(const char *format, int occurence[3])
 
 static void	fill_struct(const char *format, int occurence[3], t_parse *parsing)
 {
-	if (occurence[0] == 1)
+	if (occurence[0] > 0)
 	{
 		parsing->diez = true;
-		parsing->width++;
+		parsing->width += occurence[0];
 	}
-	if (occurence[1] == 1)
+	if (occurence[1] > 0)
 	{
 		parsing->space = true;
-		parsing->width++;
+		parsing->width += occurence[1];
 	}
-	if (occurence[2] == 1)
+	if (occurence[2] > 0)
 	{
 		parsing->plus = true;
-		parsing->width++;
+		parsing->width += occurence[2];
 	}
 	parsing->specifier = *format;
 }
@@ -99,6 +96,7 @@ int	ft_printf(const char *format, ...)
 	va_list		ap;
 	t_parse		*parsing;
 	int			count;
+	int			check_null;
 
 	if (format == NULL)
 		return (-1);
@@ -114,7 +112,10 @@ int	ft_printf(const char *format, ...)
 		{
 			if (struct_manager(++format, parsing) > 0)
 				return (va_end(ap), free(parsing), -1);
-			count += type_manager(parsing, *(format - 1 + parsing->width), ap);
+			check_null = type_manager(parsing, *(format - 1 + parsing->width), ap);
+			if (check_null == -1)
+				check_null = write(1, "(null)", 6);
+			count += check_null;
 		}
 		else
 			count += write(1, format, 1);

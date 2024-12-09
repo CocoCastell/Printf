@@ -2,7 +2,7 @@
 
 NAME = libft.a
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -I ../includes
+CFLAGS = -Werror -Wextra -Wall -I includes
 SRCS_DIR = src/
 OBJS_DIR = obj/
 AR = ar
@@ -38,7 +38,7 @@ $(NAME): $(OBJS)
 	@$(AR) -rcs $@ $^
 	@echo "Biblioteca $(MAGENTA)$(NAME)$(DEF_COLOR) creada amb èxit."
 
-$(OBJS_DIR)%.o:	$(SRCS_DIR)%.c	Makefile ../includes/libft.h
+$(OBJS_DIR)%.o:	$(SRCS_DIR)%.c	Makefile includes/libft.h
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 bonus:	$(OBJS) $(BONUS_OBJS)
