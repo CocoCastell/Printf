@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 15:49:25 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:00:12 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	printf_string(char *str)
 {
 	if (str == NULL)
 		return (-1);
-		//return (write(2, "(null)", 6));
 	else
 		return (write(1, str, ft_strlen(str)));
 }
@@ -74,8 +73,8 @@ int	print_int(long nb, int base, int flag)
 int	print_unsigned_int(unsigned int nb, int len)
 {
 	unsigned int	nb_copy;
-	int	i;
-	char	*str;
+	int				i;
+	char			*str;
 
 	nb_copy = nb;
 	while (nb_copy > 9)

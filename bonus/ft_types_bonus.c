@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 15:42:11 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:00:32 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	printf_string(char *str)
 {
 	if (str == NULL)
 		return (-1);
-		//return (write(2, "(null)", 6));
 	else
 		return (write(1, str, ft_strlen(str)));
 }

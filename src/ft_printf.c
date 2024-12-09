@@ -6,7 +6,7 @@
 /*   By: cochatel <cochatel@student.42barcelona.com>+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:47:37 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 16:06:10 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:59:35 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
-			{
-				check_null = type_manager(*(++format), ap);
-				if (check_null == -1)
-					check_null = write(1, "(null)", 6);
-				count += check_null;
-			}
+		{
+			check_null = type_manager(*(++format), ap);
+			if (check_null == -1)
+				check_null = write(1, "(null)", 6);
+			count += check_null;
+		}
 		else
 			count += write(1, format, 1);
 		format++;

@@ -6,12 +6,22 @@
 /*   By: cochatel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:34:25 by cochatel          #+#    #+#             */
-/*   Updated: 2024/12/05 17:29:35 by cochatel         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:24:16 by cochatel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 #include <stdio.h>
+
+void	init_struct(t_parse *parsing)
+{
+	parsing->diez = false;
+	parsing->space = false;
+	parsing->plus = false;
+	parsing->specifier = 'q';
+	parsing->width = 1;
+	parsing->sign = 0;
+}
 
 static int	hexa_manager(t_parse *parsing, long nb)
 {
