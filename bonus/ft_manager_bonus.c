@@ -57,7 +57,7 @@ static int	int_manager(t_parse *parsing, long nb)
 	return (count);
 }
 
-int	type_manager(t_parse *parsing, char conversion, va_list ap)
+int	manager(t_parse *parsing, char conversion, va_list ap)
 {
 	int	count;
 

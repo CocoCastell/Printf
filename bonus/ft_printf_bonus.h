@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <stdbool.h>
-# include "libft.h"
+# include "../includes/libft.h"
 
 typedef struct s_parse
 {
@@ -35,7 +35,7 @@ int		print_unsigned_int(unsigned int nb, int len);
 int		print_pointer(uintptr_t int_ptr);
 int		print_int(long nb, int base, int flag);
 int		printf_string(char *str);
-int		type_manager(t_parse *parsing, char conversion, va_list ap);
+int		manager(t_parse *parsing, char conversion, va_list ap);
 int		check_diez(t_parse *parsing);
 void	init_struct(t_parse *parsing);
 
