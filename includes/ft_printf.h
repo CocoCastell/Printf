@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <stdio.h>
 # include "libft.h"
 
 int	print_int(long nb, int base, int flag);

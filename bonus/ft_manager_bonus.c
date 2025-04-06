@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
-#include <stdio.h>
 
 void	init_struct(t_parse *parsing)
 {
