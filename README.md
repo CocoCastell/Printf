@@ -4,7 +4,7 @@ The aim of this project is to reimplement the printf() function.
 
 # Implementation  
 
-Here is the flags that are implemented:  
+### Here is the flags that are implemented:  
 
 • %c Prints a single character.  
 • %s Prints a string (as defined by the common C convention).  
@@ -16,7 +16,7 @@ Here is the flags that are implemented:
 • %X Prints a number in hexadecimal (base 16) uppercase format.  
 • %% Prints a percent sign.  
 
-And for the bonus:  
+### And for the bonus:  
 
 • # Adds the 0x prefix for hexadecimal.  
 •   Adds a space in front of positive numbers.  
